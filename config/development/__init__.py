@@ -4,7 +4,7 @@ DEBUG = True
 SECRET_KEY = os.environ['SECRET_KEY']
 SECURITY_PASSWORD_SALT = os.environ['SECURITY_PASSWORD_SALT']
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/flask_boilerplate'
+SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/simple_nickels'
 HOST = 'localhost'
 PORT = int(os.environ.get('PORT', 5000))
 
