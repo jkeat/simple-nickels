@@ -1,3 +1,3 @@
 ## simplenickels
 
-A simple use of a flask boilerplate that I'm working on.
+A simple use of a flask boilerplate called fboil that I'm working on.
