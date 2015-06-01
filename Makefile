@@ -9,6 +9,11 @@ export PYTHONPATH := $(PYTHONPATH):.
 server: $(VENV)
 	. $(VENV)/bin/activate; python run.py
 
+install: $(VENV)
+
+database: $(VENV)
+	source $(VENV)/bin/activate && python manage.py db init && python manage.py db migrate && python manage.py db upgrade
+
 config/%/env: config/%/requirements.txt
 	virtualenv $@
 	. $@/bin/activate && pip install --requirement $<
