@@ -5,13 +5,15 @@ from ..extensions import db
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(255), unique=True)
     passhash = db.Column(db.String(255))
     confirmed_email = db.Column(db.Boolean(), default=False)
+
+    wallets = db.relationship("Wallet", backref="user")
 
     def __init__(self, username, email, password):
         self.username = username.lower()
@@ -50,3 +52,18 @@ class User(db.Model):
     def get_by_email_or_username(cls, identification):
         return cls.query.filter(or_(cls.username == identification,
                                     cls.email == identification)).first()
+
+
+class Wallet(db.Model):
+    __tablename__ = 'wallets'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nickels = db.Column(db.Integer)  # nickels are lowest denomination
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __init__(self, nickels, user_id):
+        self.nickels = nickels
+        self.user_id = user_id
+
+    def __repr__(self):
+        return '<Wallet contains: {0}n>'.format(self.nickels)

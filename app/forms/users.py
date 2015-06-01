@@ -1,7 +1,7 @@
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, ValidationError
 from wtforms.validators import DataRequired, EqualTo, Length, Email
-from ..models.users import User
+from ..models.users import User, Wallet
 from ..extensions import db
 
 
@@ -40,6 +40,12 @@ class RegisterForm(Form):
                         password=self.password.data.lower())
         db.session.add(new_user)
         db.session.commit()
+
+        # TODO: create wallet on user created sqlalchemy event
+        user_wallet = Wallet(nickels=5, user_id=new_user.id)
+        db.session.add(user_wallet)
+        db.session.commit()
+
         return new_user
 
 
