@@ -38,12 +38,9 @@ class RegisterForm(Form):
         new_user = User(username=self.username.data.lower(),
                         email=self.email.data.lower(),
                         password=self.password.data.lower())
-        db.session.add(new_user)
-        db.session.commit()
-
-        # TODO: create wallet on user created sqlalchemy event
         user_wallet = Wallet(nickels=5, user_id=new_user.id)
-        db.session.add(user_wallet)
+        new_user.wallets.append(user_wallet)
+        db.session.add(new_user)
         db.session.commit()
 
         return new_user
