@@ -1,6 +1,8 @@
 from flask_wtf import Form
+from flask import current_user
 from wtforms import ValidationError, TextField, IntegerField
 from wtforms.validators import DataRequired
+
 from ..models.users import User, Wallet
 from ..extensions import db
 
@@ -21,10 +23,9 @@ class SendForm(Form):
             raise ValidationError("That user doesn't exist!")
 
     def validate_amount(self, field):
-    	user = User.query.filter_by(username=self.recipient_username.data.lower())
-    	if user.wallets[0].nickels < field.data:
+    	if current_user.main_wallet.nickels < field.data:
     		raise ValidationError("You only have {0} nickels!".format(field.data))
 
     def transfer_nickels(self):
-    	# TODO: subtract nickels from current_user's wallet and add to recipient's.
-    	pass
+    	current_user.main_wallet.subtract(self.amount.data)
+    	User.query.filter_by(username=recipient_username).main_wallet.add(self.amount.data)
