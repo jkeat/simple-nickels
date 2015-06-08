@@ -25,7 +25,7 @@ def need_confirm_email():
 @users.route('/login', methods=['GET', 'POST'])
 @logout_required
 def login():
-    form = LoginForm(request.form)
+    form = LoginForm()
 
     if request.method == 'POST':
         if not form.validate():
