@@ -5,10 +5,12 @@ from .models import *
 
 from .controllers.pages import pages
 from .controllers.users import users
+from .controllers.nickels import nickels
 
 BLUEPRINTS = (
     pages,
     users,
+    nickels,
 )
 
 
