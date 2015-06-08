@@ -14,10 +14,3 @@ def home():
 @pages.route('/about')
 def about():
     return render_template('pages/about.html')
-
-
-@pages.route('/secret')
-@login_required
-@confirmed_email_required
-def secret():
-    return render_template('pages/secret.html')

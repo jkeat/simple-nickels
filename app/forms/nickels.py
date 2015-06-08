@@ -14,7 +14,7 @@ class SendForm(Form):
     )
     amount = IntegerField(
         'Amount',
-        validators=[DataRequired()]
+        validators=[DataRequired()]  # TODO: zero, negative, decimal?
     )
 
     def validate_recipient_username(self, field):
@@ -23,7 +23,7 @@ class SendForm(Form):
 
     def validate_amount(self, field):
         if current_user.main_wallet.nickels < field.data:  # TODO: had 2 nickels, got error "you only have 2 nickels"
-            raise ValidationError("You only have {0} nickels :'(".format(field.data))
+            raise ValidationError("You only have {0} nickels :'(".format(current_user.main_wallet.nickels))
 
     def transfer_nickels(self):
         current_user.main_wallet.subtract(self.amount.data)
