@@ -19,7 +19,10 @@ def send_nickels():
 			return render_template('nickels/forms/send.html', form=form)
 		else:
 			amount = form.transfer_nickels()
-			flash("Successfully transfered {0} nickels!".format(amount))
+			s_if_plural = "s"
+			if amount == 1:
+				s_if_plural = ""
+			flash("Successfully transfered {0} nickel{1}!".format(amount, s_if_plural))
 			return render_template('nickels/forms/send.html', form=form)
 
 	elif request.method == 'GET':

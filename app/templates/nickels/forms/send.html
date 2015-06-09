@@ -3,16 +3,6 @@
 {% block content %}
 
 	<!-- TODO: extend dif't type form -->
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-	    {% for message in messages %}
-	      <div class="alert alert-warning fade in">
-	        <a class="close" data-dismiss="alert">&times;</a>
-	        {{ message }}
-	      </div>
-	    {% endfor %}
-	  {% endif %}
-	{% endwith %}
 
 	{% for field in form.errors %}
 	  {% for error in form.errors[field] %}

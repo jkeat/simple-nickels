@@ -22,7 +22,9 @@ class SendForm(Form):
             raise ValidationError("That user doesn't exist!")
 
     def validate_amount(self, field):
-        if current_user.main_wallet.nickels < field.data:  # TODO: had 2 nickels, got error "you only have 2 nickels"
+        if field.data < 1:
+            raise ValidationError("You have to send at least 1 nickel.")
+        elif current_user.main_wallet.nickels < field.data:  # TODO: had 2 nickels, got error "you only have 2 nickels"
             raise ValidationError("You only have {0} nickels :'(".format(current_user.main_wallet.nickels))
 
     def transfer_nickels(self):
