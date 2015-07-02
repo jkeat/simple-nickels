@@ -56,8 +56,7 @@ class BaseTestCase(TestCase):
                          follow_redirects=True)
 
     def logout_user(self):
-        self.client.post(url_for('users.logout'),
-                         follow_redirects=True)
+        self.client.get(url_for('users.logout'))
 
 
 class PageViewsTests(BaseTestCase):
@@ -115,6 +114,13 @@ class UserViewsTests(BaseTestCase):
                                               "password": self.USER_PASSWORD})
             self.assert_redirects(response, url_for("pages.home"))
             self.assertEqual(current_user.username, self.USER_USERNAME)
+
+    def test_can_user_logout(self):
+        with self.client:
+            self.login_user()
+            self.assertIsNotNone(current_user.get_id())
+            self.logout_user()
+            self.assertIsNone(current_user.get_id())
 
 
 class NickelsViewsTests(BaseTestCase):
