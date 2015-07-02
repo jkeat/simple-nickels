@@ -18,8 +18,8 @@ config/%/env: config/%/requirements.txt
 	virtualenv $@
 	. $@/bin/activate && pip install --requirement $<
 
-shell:
-	python -i shell.py
+shell: $(VENV)
+	source $(VENV)/bin/activate && python -i shell.py
 
 test: $(VENV)
 	. $(VENV)/bin/activate; py.test $(PYTEST_OPTIONS) tests/
