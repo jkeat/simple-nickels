@@ -17,6 +17,13 @@ class SendForm(Form):
         validators=[InputRequired()]
     )
 
+    def validate(self):
+        if not Form.validate(self):
+            return False
+        if not current_user.confirmed_email:
+            raise ValidationError("Your email hasn't been confirmed!")  # TODO: TEST (take away confirmed email decorator)
+        return True
+
     def validate_recipient_username(self, field):
         if not User.query.filter_by(username=field.data.lower()).count():
             raise ValidationError("That user doesn't exist!")

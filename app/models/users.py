@@ -83,4 +83,4 @@ class Wallet(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return '<Wallet contains: {0}n>'.format(self.nickels)
+        return '<Wallet {0}:{1}n>'.format(self.user.username, self.nickels)
