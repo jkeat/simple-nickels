@@ -229,7 +229,7 @@ class ResetPasswordViewTests(BaseUserTestCase):
         self.assertFalse(self.user.check_password(NEW_PASSWORD))
         self.assert404(response)
 
-    def test_prevent_reset_password_if_bad_token(self):
+    def test_prevent_reset_password_if_token_for_user_not_exist(self):
         NEW_PASSWORD = "NEW-PASSWORD-33"
         self.assertTrue(self.user.check_password(self.USER_PASSWORD))
         user_does_not_exist_email_token = serializer.serialize_timed_data("catalina@descend.nets")

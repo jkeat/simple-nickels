@@ -17,24 +17,17 @@ class SendForm(Form):
         validators=[InputRequired()]
     )
 
-    def validate(self):
-        if not Form.validate(self):
-            return False
-        if not current_user.confirmed_email:
-            raise ValidationError("Your email hasn't been confirmed!")  # TODO: TEST (take away confirmed email decorator)
-        return True
-
     def validate_recipient_username(self, field):
         if not User.query.filter_by(username=field.data.lower()).count():
             raise ValidationError("That user doesn't exist!")
 
     def validate_amount(self, field):
         if current_user.main_wallet.nickels == 0:
-            raise ValidationError("You don't have any nickels in your wallet :(")
-        elif field.data < 1 and isinstance(field.data, int):
+            raise ValidationError("You don't have any nickels in your wallet.")
+        elif field.data < 1:
             raise ValidationError("You need to send at least 1 nickel.")
         elif field.data > current_user.main_wallet.nickels:  # TODO: had 2 nickels, got error "you only have 2 nickels"
-            raise ValidationError("You only have {0} nickels :'(".format(current_user.main_wallet.nickels))
+            raise ValidationError("You only have {0} nickels.".format(current_user.main_wallet.nickels))
 
     def transfer_nickels(self):
         current_user.main_wallet.subtract(self.amount.data)
