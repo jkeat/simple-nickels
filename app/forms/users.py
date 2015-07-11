@@ -38,7 +38,7 @@ class RegisterForm(Form):
         new_user = User(username=self.username.data.lower(),
                         email=self.email.data.lower(),
                         password=self.password.data.lower())
-        user_wallet = Wallet(nickels=5, user_id=new_user.id)
+        user_wallet = Wallet(nickels=100, user_id=new_user.id)
         new_user.wallets.append(user_wallet)
         db.session.add(new_user)
         db.session.commit()
