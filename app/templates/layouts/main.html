@@ -49,9 +49,9 @@
             <span class="icon-bar"></span>
           </button>
           {% if current_user.is_authenticated() %}
-            <a class="navbar-brand" href="{{ url_for('pages.home') }}">Cybernickels ({{ current_user.main_wallet.nickels }})</a>
+            <a class="navbar-brand" href="{{ url_for('pages.home') }}">Simplenickels ({{ current_user.main_wallet.nickels }})</a>
           {% else %}
-            <a class="navbar-brand" href="{{ url_for('pages.home') }}">Cybernickels</a>
+            <a class="navbar-brand" href="{{ url_for('pages.home') }}">Simplenickels</a>
           {% endif %}
         </div>
         <div class="collapse navbar-collapse">
