@@ -18,6 +18,9 @@ def create_app(config_filename):
     app = Flask(__name__)
     app.config.from_object(config_filename)
 
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+
     configure_blueprints(app, BLUEPRINTS)
     configure_extensions(app)
 
