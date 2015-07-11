@@ -7,6 +7,10 @@ from .controllers.pages import pages
 from .controllers.users import users
 from .controllers.nickels import nickels
 
+import sys
+import logging
+
+
 BLUEPRINTS = (
     pages,
     users,
