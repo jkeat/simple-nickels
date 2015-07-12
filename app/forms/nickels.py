@@ -22,7 +22,7 @@ class SendForm(Form):
             raise ValidationError("That user doesn't exist!")
 
     def validate_amount(self, field):
-        if field.data:
+        if isinstance(field.data, int):
             if field.data < 1:
                 raise ValidationError("You need to send at least 1 nickel.")
             elif current_user.main_wallet.nickels == 0:
