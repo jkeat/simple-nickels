@@ -1,3 +1,5 @@
-## simplenickels
+## Simple Nickels
 
-A simple use of the flask boilerplate called fboil that I'm working on.
+A simple implementation of [fboil]("https://github.com/jkeat/fboil").
+
+Send virtual nickels to other users from your wallet. That's it..
