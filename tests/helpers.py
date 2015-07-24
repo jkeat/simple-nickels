@@ -1,7 +1,7 @@
 from flask import url_for
 from flask.ext.testing import TestCase
 from flask.ext.login import current_user
-from app import create_app, User
+from app import create_app, User, Wallet
 from app.extensions import db
 
 
@@ -27,6 +27,8 @@ class BaseUserTestCase(BaseTestCase):
     USER2_EMAIL = "lisa2000@rocketmail.com"
     USER2_PASSWORD = "n3lson_is_ha_hawt"
 
+    WALLET_NICKELS = 3
+
     def setUp(self):
         super(BaseUserTestCase, self).setUp()
         self.user = self.create_user(username=self.USER_USERNAME,
@@ -36,6 +38,11 @@ class BaseUserTestCase(BaseTestCase):
     def create_user(self, **kwargs):
         user = User(**kwargs)
         db.session.add(user)
+        db.session.commit()
+        user_id = User.query.filter_by(username=kwargs.get("username")).first().id
+        wallet = Wallet(nickels=self.WALLET_NICKELS,
+                        user_id=user_id)
+        db.session.add(wallet)
         db.session.commit()
         return user
 
