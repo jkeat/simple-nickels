@@ -15,7 +15,7 @@ install: "pip install -r requirements.txt"
 
 # create the database
 before_script:
-  - psql -c 'create database simplenickels_test;' -U postgres
+  - psql -c 'create database simple_nickels_test;' -U postgres
 
 # command to run tests
 script: nosetests
