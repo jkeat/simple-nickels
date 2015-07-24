@@ -1,3 +1,4 @@
+from flask.ext.login import current_user
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, ValidationError
 from wtforms.validators import DataRequired, EqualTo, Length, Email

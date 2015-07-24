@@ -18,7 +18,7 @@ class SendForm(Form):
     )
 
     def validate_recipient_username(self, field):
-        if not User.query.filter_by(username=field.data.lower()).count():
+        if not User.is_username_taken(username=field.data):
             raise ValidationError("That user doesn't exist!")
 
     def validate_amount(self, field):
@@ -32,5 +32,5 @@ class SendForm(Form):
 
     def transfer_nickels(self):
         current_user.main_wallet.subtract(self.amount.data)
-        User.query.filter_by(username=self.recipient_username.data).first().main_wallet.add(self.amount.data)
+        User.get_by_email_or_username(identification=self.recipient_username.data).main_wallet.add(self.amount.data)
         return self.amount.data

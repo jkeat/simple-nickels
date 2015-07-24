@@ -19,6 +19,8 @@ class User(db.Model):
     is_oauth_user = db.Column(db.Boolean(), default=False)
     twitter_username = db.Column(db.String(255), unique=True)
 
+    wallets = db.relationship("Wallet", backref="user")
+
     def __init__(self, password=None, **kwargs):
         super(User, self).__init__(**kwargs)
         if password:
@@ -51,6 +53,10 @@ class User(db.Model):
     def is_anonymous(self):
         return False
     # ========= end Flask-Login required methods ^^^
+
+    @property
+    def main_wallet(self):
+        return self.wallets[0]
 
     @classmethod
     def get_by_email_or_username(cls, identification):
