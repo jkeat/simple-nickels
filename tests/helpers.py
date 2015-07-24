@@ -1,13 +1,13 @@
 from flask import url_for
 from flask.ext.testing import TestCase
 from flask.ext.login import current_user
-from app import create_app, User, Wallet
+from app import create_app, User
 from app.extensions import db
 
 
 class BaseTestCase(TestCase):
     def create_app(self):
-        app = create_app('config.testing')
+        app = create_app('config.TestingConfig')
         return app
 
     def setUp(self):
@@ -27,36 +27,31 @@ class BaseUserTestCase(BaseTestCase):
     USER2_EMAIL = "lisa2000@rocketmail.com"
     USER2_PASSWORD = "n3lson_is_ha_hawt"
 
-    WALLET_NICKELS = 3
-
     def setUp(self):
         super(BaseUserTestCase, self).setUp()
-        self.user = self.create_user(self.USER_USERNAME,
-                                     self.USER_EMAIL,
-                                     self.USER_PASSWORD)
+        self.user = self.create_user(username=self.USER_USERNAME,
+                                     email=self.USER_EMAIL,
+                                     password=self.USER_PASSWORD)
 
-    def create_user(self, username, email, password):
-        user = User(username=username,
-                    email=email,
-                    password=password)
+    def create_user(self, **kwargs):
+        user = User(**kwargs)
         db.session.add(user)
-        db.session.commit()
-        user_id = User.query.filter_by(username=username).first().id
-        wallet = Wallet(nickels=self.WALLET_NICKELS,
-                        user_id=user_id)
-        db.session.add(wallet)
         db.session.commit()
         return user
 
     def create_second_user(self):
-        self.user2 = self.create_user(self.USER2_USERNAME,
-                                      self.USER2_EMAIL,
-                                      self.USER2_PASSWORD)
+        self.user2 = self.create_user(username=self.USER2_USERNAME,
+                                      email=self.USER2_EMAIL,
+                                      password=self.USER2_PASSWORD)
 
-    def login_user(self):
+    def login_user(self, username=None, password=None):
+        if username is None:
+            username = self.USER_USERNAME
+        if password is None:
+            password = self.USER_PASSWORD
         self.client.post(url_for('users.login'),
-                         data={"username": self.USER_USERNAME,
-                               "password": self.USER_PASSWORD},
+                         data={"username": username,
+                               "password": password},
                          follow_redirects=True)
 
     def logout_user(self):
