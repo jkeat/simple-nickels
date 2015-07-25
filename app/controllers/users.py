@@ -7,7 +7,7 @@ from itsdangerous import BadSignature
 from ..extensions import serializer, db, twitter
 from ..forms.users import (RegisterForm, LoginForm, ForgotPasswordForm,
                            ResetPasswordForm, SetUsernameForm)
-from ..models.users import User, Wallet
+from ..models import User, Wallet
 from ..decorators import (confirmed_email_required,
                           unconfirmed_email_required, logout_required)
 from ..utils import send_email, email_user_confirmation_link

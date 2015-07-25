@@ -2,7 +2,7 @@ from flask import (render_template, Blueprint, request,
                    redirect, url_for, flash)
 from flask.ext.login import current_user, login_required
 from ..forms.nickels import SendForm
-from ..models.users import User, Wallet
+from ..models import User, Wallet
 from ..decorators import confirmed_email_required
 
 
