@@ -2,8 +2,7 @@ from flask_wtf import Form
 from flask.ext.login import current_user
 from wtforms import (ValidationError, TextField, IntegerField)
 from wtforms.validators import (DataRequired, InputRequired)
-from ..models import User, Wallet
-from ..extensions import db
+from ..models import User
 
 
 class SendForm(Form):
