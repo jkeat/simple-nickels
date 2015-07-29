@@ -1,5 +1,5 @@
 from flask import Flask
-from .extensions import login_manager, db, mail, serializer
+from .extensions import login_manager, db, mail, serializer, compress
 
 from .models import *
 
@@ -49,6 +49,9 @@ def configure_extensions(app):
 
     # serialize
     serializer.init_app(app)
+
+    # flask-compress
+    compress.init_app(app)
 
 
 def configure_blueprints(app, blueprints):
